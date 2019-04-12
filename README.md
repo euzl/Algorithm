@@ -3,10 +3,9 @@
 
 ## 추가개념정리
 **최댓값/최솟값**
-<PRE class="brush:cpp;">#include <algorithm> 
-max(<int>, <int>, ...) //인자 중 최대값 반환. 변수 못넣음. 
-min(<int>, <int>, ...) // 최소값
-</PRE>
+#include <algorithm> 
+max(<int>, <int>, ...); //인자 중 최대값 반환. 변수 못넣음. 
+min(<int>, <int>, ...); // 최소값
   
 **절댓값**
-<PRE class="brush:cpp;">abs(<숫자>)</PRE>
+abs(<숫자>);
