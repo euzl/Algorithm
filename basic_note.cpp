@@ -8,4 +8,4 @@ min(int num1, int num2, ...); // 최소값
 /* 절댓값 */
 #include <cstdlib> // int 형인 경우
 #include <cmath.h> // double, float
-abs(int num); // 절대값 반환
+abs(int num); // 절대값 반환 (absolute value)
