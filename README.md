@@ -5,3 +5,4 @@
 |--|--|
 | March 12th ~ March 16th |  |
 | March 17th ~ June 2nd |Break(Travel)  |
+| June 7th ~ |  |
