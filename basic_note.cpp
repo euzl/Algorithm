@@ -13,7 +13,7 @@ abs(int num); // 절대값 반환 (absolute value)
 @\ : 역슬래쉬 사용
 /*
 \t  : tab 효과
-\n  : enter 효과(endl)
+\n  : enter 효과(endl) *endl 보다 빠르다.
 \', \"  : 따옴표(', ") 표시
 \\  : \ 출력 (하나만 하면 출력X)
 */
