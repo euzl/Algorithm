@@ -33,3 +33,10 @@ cin.getline(str_input, 10);
 #include <string>
 string str_input;
 getline(cin, str_input); // 두번째 파라미터에 입력받은 스트링을 저장할 이름 
+
+@제곱근 : x^y
+double pow( double x, double y ); 
+float powf( float x, float y ); 
+long double powl( long double x, long double y );
+
+
