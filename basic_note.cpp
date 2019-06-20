@@ -40,3 +40,17 @@ float powf( float x, float y );
 long double powl( long double x, long double y );
 
 @
+
+
+
+
+
+/* C언어 */
+@숫자 입력
+#include <stdio.h>
+getchar() // (문자입력) 한 글자씩 입력됨. 숫자 12면 1, 2 따로
+scanf("%c", &x); // (char) 문자 입력 *숫자도 한글자씩
+scanf("%d", &x); // (double) 숫자 입력
+scanf("%s", &x); // (string) 문자열 입력
+
+@ char형으로 저장된 숫자에서 [ - '0' ](integer 48 을 빼는 것) 을 해주면 int(아마도)형이 된다.
