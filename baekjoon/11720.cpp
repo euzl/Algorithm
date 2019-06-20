@@ -1,16 +1,15 @@
 // 11720 :: 숫자의 합
-#include <iostream>
-using namespace std;
+#include <stdio.h>
 int main() {
-	int size;
-	cin >> size;
-	int number;
-	cin >> number;
+	int n;
+	scanf("%d", &n);
 	int sum = 0;
-	for (int i = 0; i < size; i++) {
-		sum += number % 10;
-		number /= 10;
+    
+	while (n--) { // n이 0이 될 때까지 
+        char x;
+		scanf("%c", &x); // 숫자 하나씩 입력받음
+		sum += x - '0';
 	}
-	cout << sum << endl;
+	printf("%d", sum);
 	return 0;
 }
