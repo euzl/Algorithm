@@ -39,7 +39,9 @@ double pow( double x, double y );
 float powf( float x, float y ); 
 long double powl( long double x, long double y );
 
-@
+@소수점 자리설정
+#include <iomanip>
+cout<<setprecision(3); // 파라미터로 소수점 몇자리인지 정해줌
 
 
 
