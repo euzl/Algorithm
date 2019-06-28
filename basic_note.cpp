@@ -43,7 +43,10 @@ long double powl( long double x, long double y );
 #include <iomanip>
 cout<<setprecision(3); // 파라미터로 소수점 몇자리인지 정해줌
 
-
+@입출력 메모리 적게
+#include <stdio.h>
+scanf("%d",&a);
+printf("%d",&a);
 
 
 
