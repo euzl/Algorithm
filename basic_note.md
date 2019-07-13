@@ -52,6 +52,25 @@ cout << setprecision(3);   // 파라미터로 소수점 몇자리인지 정해�
 scanf("%d",&a);     // 입력
 printf("%d",&a);    // 출력
 ```
+
+### 삼항연산자
+`조건문 ? <참일 때> : <거짓일 때> ;`
+
+### puts
+int puts(const char* str);<br>
+str을 stdout에 쓴 뒤 개행문자도 자동으로 붙는다.<br>
+fputs는 동일하지만 개행문자가 붙지 않는다.<br>
+[리턴값] 성공적으로 쓰이면 음이 아닌 값, 오류발생시 EOF추력
+```c
+#include <cstdio>     // C++에서
+#include <stdio.h>    // C에서
+puts(<출력할 값>);    
+```
+삼항연산자와 같이 사용하기도 하는듯! 아래와 같은 느낌
+```C
+puts(t == 12345678 ? "ascending" : t == 87654321 ? "descending" : "mixed");
+```
+
 ---
 ## C언어
 ### 숫자 입력
