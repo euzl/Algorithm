@@ -36,6 +36,14 @@ string은 이렇게!
 string str_input;
 getline(cin, str_input);  // 두번째 파라미터에 입력받은 스트링을 저장할 이름
 ```
+### 문자열 검색
+```c
+#include <string.h>
+string str;
+str.find('<찾을거>');
+```
+찾은경우 문자열 위치(배열에서)반환 / 못찾은 경우 쓰레기값
+<br>
 ### 제곱근 : x^y
 ```c
 double pow( double x, double y );
