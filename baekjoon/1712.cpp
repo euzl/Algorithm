@@ -4,11 +4,9 @@
 int main() {
 	int a, b, c;
 	std::cin >> a >> b >> c;
-	int i = a / (c - b) + 1;
-
-	if (i > 0)
-		printf("%d", i);
-	else
+	if (c <= b)
 		printf("-1");
+	else
+		printf("%d", a / (c - b) + 1);
 	return 0;
 }
