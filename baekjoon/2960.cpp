@@ -1,5 +1,5 @@
 // 2960 :: 에라토스테네스의 체
-// 틀렸는데, 내가 실행했을 때는 잘 되고 뭐가 틀린지 모르겠다 ㅠㅠㅠㅠ
+// 12줄에서 i<n을 i<=n으로 바꿨더니 해결! 생각해보니 n이 소수일 때는 n이 제일 마지막에 지워진다,,,
 #include <cstdio>
 
 int main()
@@ -9,13 +9,13 @@ int main()
 	scanf("%d%d", &n, &k);
 	for (int i = 2; i <= n; i++) // (1)2부터 n까지 모든 정수를 적는다
 		num[i] = true;
-	for (int i = 2; i < n; i++) { // (2) 아직 지우지 않은 수 중 가장 작은 수를 찾는다. <= i (이것을 p라고 하고, 이 수는 소수이다.)
-		if (num[i] == false) 
+	for (int i = 2; i <= n; i++) { // (2) 아직 지우지 않은 수 중 가장 작은 수를 찾는다. <= i (이것을 p라고 하고, 이 수는 소수이다.)
+		if (!num[i]) 
 			continue;
-		for (int j = 1; j < n; j++) { // (3) p를 지우고, 아직 지우지 않은 p의 배수를 크기 순서대로 지운다.
+		for (int j = 1; j <= n; j++) { // (3) p를 지우고, 아직 지우지 않은 p의 배수를 크기 순서대로 지운다.
 			if (i * j > n)
 				break;
-			if (num[i * j] == false)
+			if (!num[i * j])
 				continue;
 			cnt++;
 			if (cnt == k) { // k번째 지우는 수
