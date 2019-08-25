@@ -1,49 +1,34 @@
 // 5622::다이얼
-#include <cstdio>
+#include <iostream>
+using namespace std;
 
 int main()
 {
-	char num;
-	int time = 0;
-
-	while (~scanf("%d", &num)) {
-		switch (int(num)) {
-		case 22:
-		case 23:
-		case 24:
-		case 25:
-			time += 1;
-		case 21:
-		case 20:
-		case 19:
-			time += 1;
-		case 15:
-		case 16:
-		case 17:
-		case 18:
-			time += 1;
-		case 12:
-		case 13:
-		case 14:
-			time += 1;
-		case 9:
-		case 10:
-		case 11:
-			time += 1;
-		case 6:
-		case 7:
-		case 8:
-			time += 1;
-		case 3:
-		case 4:
-		case 5:
-			time += 1;
-		case 0:
-		case 1:
-		case 2:
-			time += 3;
+	char num[15];
+	int time = 0, n;
+	int i = 0, cnt = 15;
+	cin >> num;
+	while (cnt--) {
+		n = int(num[i]) - 65;
+		if (n < 0 || n>25)
 			break;
-		}
+		if (n >= 0 && n < 3)
+			time += 3;
+		else if (n > 2 && n < 6)
+			time += 4;
+		else if (n > 5 && n < 9)
+			time += 5;
+		else if (n > 8 && n < 12)
+			time += 6;
+		else if (n > 11 && n < 15)
+			time += 7;
+		else if (n > 14 && n < 19)
+			time += 8;
+		else if (n > 18 && n < 22)
+			time += 9;
+		else if (n > 21 && n < 26)
+			time += 10;
+		i++;
 	}
 	printf("%d", time);
 	return 0;
