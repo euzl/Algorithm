@@ -121,3 +121,14 @@ scanf("%[123]", str);
 scanf("%[^\n])
 // \n 나오기 직전에 끝남 \n빼고 다받음
 ```
+
+### 메모리 할당 및 해제
+```c
+#include <stdlib.h>    // malloc, free 함수가 선언돼있는 헤더파일
+
+// 예시
+struct NODE *newNode = malloc(sizeof(struct NODE)); // 새 노드 생성
+
+free(newNode); // 노드 메모리 해제
+```
+적고 보니 c++의 new, delete 개념인듯
