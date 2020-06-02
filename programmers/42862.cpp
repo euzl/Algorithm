@@ -17,8 +17,7 @@ int solution(int n, vector<int> lost, vector<int> reserve) {
     int answer = n;
     for (int i=0; i<lost.size(); i++) {
         if(findReserve(lost[i], reserve)){
-            lost.erase(lost.begin()+i);
-            i--;
+            lost.erase(lost.begin()+i--);
         }
     }
     for (int l : lost) {
