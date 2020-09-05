@@ -8,9 +8,7 @@ bool solution(string s) {
         return false;
     }
     for (char c : s) {
-        if ((c >= 65) && (c <= 90)) { // 대문자
-            return false;
-        } else if ((c >= 97) && (c <= 122)) { // 소문자
+        if (!isdigit(c)) {
             return false;
         }
     }
