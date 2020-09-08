@@ -17,3 +17,4 @@ int main() {
     cout<<square(t);
     return 0;
 }
+ 
