@@ -25,7 +25,6 @@ int main() {
             }
         }
         length[0][i]++;
-        max = getMax(max, length[0][i]);
     }
     // 내림차순
     for (int i=n-1; i>=0; i--) {
@@ -37,14 +36,9 @@ int main() {
             }
         }
         length[1][i]++;
-        max = getMax(max, length[1][i]);
-    }
 
-    for (int i=0; i<n; i++) {
-        for (int j=i; j<n; j++) {
-            if (i==j) max = getMax(max, length[0][i] + length[1][j] - 1);
-            else if (arr[i] == arr[j] ) continue;
-            else max = getMax(max, length[0][i] + length[1][j]);
+        if (length[0][i] + length[1][i] - 1 > max) {
+            max = length[0][i] + length[1][i] - 1;
         }
     }
 
