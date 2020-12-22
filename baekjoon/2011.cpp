@@ -1,65 +1,63 @@
-#include <cstdio>
+#include <iostream>
 #include <string>
 using namespace std;
 
 int main() {
-    char tmp[5001];
-    scanf("%s", tmp);
-    string n = tmp;
-
-    if (n[0] == '0') {
-        printf("%d", 0);
-        return 0;
+    int w[2][5001] = {{0, 0}, };
+    string word;
+    cin >> word;
+    
+    int idx = word.length() - 1;
+    bool isZero = false; // 직전 숫자가 0인지 체크
+    bool isUndersix = false; // 6이하인경우 true
+    
+    w[0][idx] = 1;
+    w[1][idx] = 0;
+    
+    if (word[idx] == '0') {
+        isZero = true;
+        isUndersix = true;
+    } else if (word[idx] - '0' <= 6) {
+        isUndersix = true;
     }
-
-    int dp[3] = {1, 1, 0};
-    int i=2;
-    int num = n[n.size()-1] - '0';
-
-    // 여러 해석의 여지가 있는 경우
-    // 0: 1,2, 1: 3~6, 2: 7~9, 3: 0
-    int flag = num <=2 ? 0 : num <= 6 ? 1 : 2;
-    if (num%10 == 0) {
-        flag = 3;
-//        i++;
-    }
-    for (int k = n.size()-2; k>=0; k--) {
-        if (flag == 3) { // 이전 숫자가 0일 때
-            if ((n[k] - '0' == 1) || (n[k] - '0' == 2)) {
-                flag = 3;
-            } else {
-                // 0 으로 해줌
+    while (idx > 0) {
+        idx--;
+        int wrd = word[idx] - '0';
+        
+        // 답이 없는 경우 (10, 20 제외 모든 경우)
+        if (isZero) {
+            if ((wrd != 1) && (wrd != 2)){
+                w[0][idx] = w[1][idx] = 0;
                 break;
             }
-        } else { // 1~9
-            if (n[k] - '0' == 1) {
-                if (flag == 0) {
-                    dp[i%3] = (dp[(i-1)%3] + dp[(i-2)%3])%1000000;
-                } else {
-                    dp[i%3] = (dp[(i-1)%3]*2)%1000000;
-                }
-                i++;
-                flag = 0;
-            } else if (n[k] - '0' == 2) {
-                if (flag == 0) {
-                    dp[i%3] = (dp[(i-1)%3] + dp[(i-2)%3])%1000000;
-                    i++;
-                } else if (flag == 1) {
-                    dp[i%3] = (dp[(i-1)%3]*2)%1000000;
-                    i++;
-                }
-                flag = 0;
-            } else if (n[k] - '0' == 0) {
-                flag = 3;
-            } else if (n[k] - '0' <=6) {
-                flag = 1;
-            } else {
-                flag = 2;
-            }
         }
+        
+        w[0][idx] = w[0][idx+1] + w[1][idx+1];
+        
+        if (((wrd == 2) && isUndersix) || (wrd == 1)) {
+            // 2자리 연속이 한 단어가 되는 경우
+            if (isZero) w[0][idx] = 0; // 10, 20은 무조건 2연속만 가능
+            w[1][idx] = w[0][idx+1];
+        } else {
+            w[1][idx] = 0;
+        }
+        
+        // 2자리 연속 가능 여부를 위한 bool변수 저장
+        if (wrd == 0) isZero = true;
+        else isZero = false;
+        
+        if (wrd <= 6) isUndersix = true;
+        else isUndersix = false;
+        
+        w[0][idx] %= 1000000;
+        w[1][idx] %= 1000000;
     }
-
-    printf("%d", dp[(i-1)%3]%1000000);
-
+    
+    if (isZero) {
+        // 맨 앞이 0이면 답은 0!
+        cout << 0 << endl;
+    } else {
+        cout << (w[0][0] + w[1][0])%1000000 << endl;
+    }
     return 0;
 }
