@@ -1,8 +1,3 @@
-void maxCounter(vector<int> &counter, int N, int maxC) {
-    for (int i=0; i<N; i++) {
-        counter[i] = maxC;
-    }
-}
 vector<int> solution(int N, vector<int> &A) {
     // write your code in C++14 (g++ 6.2.0)
     // int counter[100001] = {0, };
@@ -10,14 +5,26 @@ vector<int> solution(int N, vector<int> &A) {
     for (int i=0; i<N; i++) {
         counter.push_back(0);
     }
-    int maxC = 0;
+    int max = 0;
+    int maxCounter = max;
 
     for (int X : A) {
         if (X <= N) {
-            counter[X-1]++;
-            maxC = maxC > counter[X-1] ? maxC : counter[X-1]; // 갱신
-        } else {
-            maxCounter(counter, N, maxC);
+            if (counter[X-1] >= maxCounter) {
+                counter[X-1]++;
+                max = max > counter[X-1] ? max : counter[X-1]; // 갱신
+            } else {
+                counter[X-1] = maxCounter;
+                counter[X-1]++;
+                max = max > counter[X-1] ? max : counter[X-1]; // 갱신
+            }
+        } else if (X == N+1) {
+            maxCounter = max;
+        }
+    }
+    for (int i = 0; i<N; i++) {
+        if (counter[i] < maxCounter) {
+            counter[i] = maxCounter;
         }
     }
     return counter;
