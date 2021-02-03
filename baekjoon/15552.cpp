@@ -1,11 +1,20 @@
-//15552::빠른 A+B
-// 왜틀렸는지 모르겠음 ㅜㅜ
-#include <cstdio>
-int main(){
-	int t, a, b;
-	scanf("%d", &t);
-	while (t--) {
-		scanf("%d %d", &a, &b);
-		printf("%d", a + b);
-	}
+#include <iostream>
+using namespace std;
+
+
+int main(void)
+{
+    cin.tie(NULL);
+    ios_base::sync_with_stdio(false);
+
+    int t;
+    cin >> t;
+
+    int a, b;
+    while(t--) {
+        cin >> a >> b;
+        cout << a+b << '\n';
+    }
+
+    return 0;
 }
