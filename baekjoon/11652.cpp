@@ -2,16 +2,14 @@
 #include <algorithm>
 using namespace std;
 
-#define SIZE 1000000
-
-long long deck[SIZE];
-
 int main() {
     cin.tie(NULL);
     ios_base::sync_with_stdio(false);
 
     int n;
     cin >> n;
+
+    long long *deck = new long long[n];
 
     for (int i=0; i<n; i++) {
         cin >> deck[i];
@@ -37,6 +35,8 @@ int main() {
     }
 
     cout << mostNum;
+
+    delete deck;
 
     return 0;
 }
