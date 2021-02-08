@@ -1,35 +1,20 @@
-#include <iostream>
-#include <string>
+#include <cstdio>
 using namespace std;
 
 int main() {
-    cin.tie(NULL);
-    ios_base::sync_with_stdio(false);
 
     int n;
-    cin >> n;
+    scanf("%d", &n);
 
-    string ps;
-    int cnt=0;
-    bool isRight;
+    char ps[51];
+    int cnt;
     while(n--) {
-        cin >> ps;
-
+        scanf("%s", &ps);
         cnt = 0;
-        isRight = true;
-
-        for (int i=0; i<ps.size(); i++) {
-            if (ps[i] == '(') cnt++;
-            else cnt--;
-
-            if (cnt < 0) {
-                isRight = false;
-                break;
-            }
+        for (int i=0; ps[i] && cnt >= 0; i++) {
+            ps[i] == '(' ? cnt++ : cnt--;
         }
-
-        if (isRight && cnt == 0) cout << "YES\n";
-        else cout << "NO\n";
+        puts(cnt ? "NO" : "YES");
     }
 
     return 0;
