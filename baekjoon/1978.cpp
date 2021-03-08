@@ -1,18 +1,26 @@
 #include <cstdio>
-
-int main()
-{
-	int t, ot, i, num, cnt = 0;
-	scanf("%d", &t);
-	ot = t;
-	while (t--) {
-		scanf("%d", &num);
-		for (i = 2; i < num / 2; i++) {
-			if (num % i == 0)
-				cnt++;
-
-		}
-	}
-	printf("%d", ot - cnt);
-	return 0;
+using namespace std;
+int main() {
+    int n, num;
+    scanf("%d", &n);
+    int i, j;
+    int cnt = 0;
+    int isSosu;
+    while(n--) {
+        scanf("%d", &num);
+        i = 2;
+        j = num;
+        isSosu = true;
+        while (i < j) {
+            if (num%i == 0) {
+                isSosu = false;
+                break;
+            }
+            j = num/i;
+            ++i;
+        }
+        if (isSosu && num >= 2) ++cnt;
+    }
+    printf("%d", cnt);
+    return 0;
 }
