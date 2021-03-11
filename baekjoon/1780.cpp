@@ -4,30 +4,29 @@ using namespace std;
 int arr[MAX_N][MAX_N];
 int result[3];
 
-bool isPromising(int rowStart, int colStart, int size) {
-    int start = arr[rowStart][colStart];
-    for (int i = rowStart; i < rowStart + size; i++) {
-        for (int j = colStart; j < colStart + size; j++) {
-            if (arr[i][j] != start) return false;
-        }
-    }
-    return true;
-}
-
-void cutPaper(int rowStart, int colStart, int size) {
-    if (isPromising(rowStart, colStart, size)) {
-        int num = arr[rowStart][colStart];
+bool cutPaper(int rowStart, int colStart, int size) {
+    int num = arr[rowStart][colStart];
+    if (size == 1) {
         ++result[num+1];
-        return;
+        return true;
     }
-
-    size /= 3;
-    if (size == 0) return;
-
-    for (int i=0; i<3; i++) {
-        for (int j=0; j<3; j++) {
-            cutPaper(rowStart+i*size, colStart+j*size, size);
+    bool isPromising = true;
+    for (int i=0; i<size; i += size/3) {
+        for (int j=0; j<size; j += size/3) {
+            if (cutPaper(rowStart+i, colStart+j, size/3)) {
+                if (arr[rowStart + i][colStart + j] != num) {
+                    isPromising = false;
+                }
+            } else {
+                isPromising = false;
+            }
         }
+    }
+    if (isPromising) {
+        result[num+1] -= 8;
+        return true;
+    } else {
+        return false;
     }
 }
 
