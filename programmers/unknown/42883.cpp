@@ -19,7 +19,7 @@ string solution(string number, int k) {
     string answer = "";
     int idx = 0;
     int size = number.length();
-    while(1) {
+    while(k != size) {
         idx = getMaxIdx(idx, k, number);
         answer = answer + number[idx];
         if (idx == k) {
@@ -28,7 +28,6 @@ string solution(string number, int k) {
         }
         ++k;
         ++idx;
-        if (k == size) break;
     }
     return answer;
 }
