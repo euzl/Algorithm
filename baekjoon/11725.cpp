@@ -1,17 +1,25 @@
 #include <cstdio>
 #include <vector>
+#include <queue>
 using namespace std;
 #define NODE_SIZE 100001
 vector<int> tree[NODE_SIZE];
 int parent[NODE_SIZE] = {1, 1, };
 
-void findParent(int cur) {
-    for (int next : tree[cur]) {
-        if (parent[next]) continue;
-        parent[next] = cur;
-//        printf("%d - %d\n", cur, next);
-        findParent(next);
+void findParent(int start) {
+    queue<int> q;
+    q.push(start);
+
+    while(!q.empty()) {
+        int cur = q.front();
+        q.pop();
+        for (int next : tree[cur]) {
+            if (parent[next]) continue;
+            parent[next] = cur;
+            q.push(next);
+        }
     }
+
 }
 int main() {
     int N;
