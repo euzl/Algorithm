@@ -5,7 +5,6 @@ using namespace std;
 #define MAX_H 33
 int N=0, M=0, H=0;
 int status[MAX_H][MAX_N];
-int maximum;
 
 bool possible() {
     int cur;
@@ -23,7 +22,7 @@ bool possible() {
     return true;
 }
 
-void makeBridge(int start, int cnt, int t) {
+void makeBridge(int hh, int cnt, int t) {
     if (cnt == t) {
         if (possible()) {
             printf("%d", cnt);
@@ -32,16 +31,13 @@ void makeBridge(int start, int cnt, int t) {
         return;
     }
 
-    int r, c;
-    for (int i=start; i<=maximum; i++) {
-        r = (i-1)/N + 1;
-        c = (i-1)%N + 1;
-        if (status[r][c] || status[r][c-1] || status[r][c+1]) continue;
-
-        status[r][c] = 1;
-        makeBridge(i+1, cnt+1, t);
-        status[r][c] = 0;
-
+    for (int h=hh; h<=H; h++) {
+        for (int n = 1; n <= N; n++) {
+            if (status[h][n] ||status[h][n - 1] ||status[h][n + 1]) continue;
+            status[h][n] = 1;
+            makeBridge(h, cnt + 1, t);
+            status[h][n] = 0;
+        }
     }
 }
 
@@ -63,7 +59,6 @@ int main() {
         printf("0");
         return 0;
     }
-    maximum = N*H;
 
     find();
     printf("-1");
