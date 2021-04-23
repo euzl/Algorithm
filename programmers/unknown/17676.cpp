@@ -1,12 +1,12 @@
 #include <string>
 #include <cstdio>
-#include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
 int solution(vector<string> lines) {
-    if (lines.size() == 1) return 1;
+    // if (lines.size() == 1) return 1;
     vector<pair<int, int> > times;
 
     int answer = 0;
@@ -19,40 +19,18 @@ int solution(vector<string> lines) {
     for (string line : lines) {
         sscanf(line.c_str(), "%s %d:%d:%d.%d %lfs", buf, &hh, &mm, &ss, &sss, &dur);
         endTime = ((hh*60+mm)*60+ss)*1000+sss;
-        beginTime = endTime - dur*1000 + 1;
-        times.push_back({beginTime, endTime});
+        beginTime = endTime - dur*1000.0+0.5 + 1;
+        times.push_back({beginTime, -1});
+        times.push_back({endTime+999, +1}); // 1초를 붙인다.
     }
     
-    int bound = times.size()-1, logStart, cnt;
-    int start = bound;
+    sort(times.begin(), times.end());
     
-    while(1) {
-        if (bound == 0) break;
-        // count
-        cnt = 0;
-        for (int i = start; i>=0; i--) {
-            if (times[bound].second - times[i].second < 1000) ++cnt;
-            else break;
-        }
-        answer = answer < cnt ? cnt : answer;
-        
-        // Init bound
-        if (times[bound].first >= times[bound-1].second) {
-            cnt = 0, logStart = times[bound].first-999;
-            for (int i = start; i>=0; i--) {            
-                if (times[bound].second - times[i].second < 1000) ++cnt;
-                else break;
-            }
-            start = bound-1;
-        }
-        answer = answer < cnt ? cnt : answer;
-        
-        --bound;
-        
-        // Init last log (for count)
-        if (times[bound].second < times[start].first) {
-            start = bound;
-        }
+    int cnt=0;
+    int t_size = times.size();
+    for (auto t : times) {
+        cnt -= t.second;
+        answer = answer<cnt?cnt:answer;
     }
     
     return answer;
