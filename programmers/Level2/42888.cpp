@@ -14,15 +14,10 @@ vector<string> solution(vector<string> record) {
     for (string r : record) {
         sscanf(r.c_str(), "%s %s %s", cmd, uid, name);
         if (cmd[0] == 'C') {
-            id.find(uid)->second = name;
+            id[uid] = name;
         } else {
             if (cmd[0] == 'E') {
-                it = id.find(uid);
-                if (it != id.end()) {
-                    it->second = name;
-                } else {
-                    id[uid] = name;
-                }
+                id[uid] = name;
                 enter.push_back({true, uid});
             } else {
                 enter.push_back({false, uid});
@@ -32,9 +27,9 @@ vector<string> solution(vector<string> record) {
     
     for (auto e : enter) {
         if (e.first == true) {
-            answer.push_back(id.find(e.second)->second + "님이 들어왔습니다.");
+            answer.push_back(id[e.second] + "님이 들어왔습니다.");
         } else {
-            answer.push_back(id.find(e.second)->second + "님이 나갔습니다.");
+            answer.push_back(id[e.second]+ "님이 나갔습니다.");
         }
     }
     
