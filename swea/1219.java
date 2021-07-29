@@ -13,7 +13,7 @@ class Solution
 		int T = 10;
 		for(int test_case = 1; test_case <= T; test_case++)
 		{
-			graph = new int[100][100];
+			graph = new int[100][2];
 			isTrue = false;
 			int t = sc.nextInt();
 			int size = sc.nextInt();
