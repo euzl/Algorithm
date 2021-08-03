@@ -13,17 +13,14 @@ class Solution
 			answer = true;
 			String n = sc.nextLine();
 			int N = Integer.parseInt(n);
-			int [][] tree = new int[N+1][2]; // 1 left 2 right
-			char [] oper = new char[N+1]; // save operator
-			double [] num = new double[N+1]; // value of Node
 			
-			input(tree, num, oper, N, sc);
+			input(N, sc);
 			
 			System.out.printf("#%d %d\n", test_case, answer==true?1:0);
 		}
 	}
 	
-	static void input(int [][] tree, double [] num, char [] oper, int N, Scanner sc) {
+	static void input(int N, Scanner sc) {
 		int a;
 		String b;
 		int i;
