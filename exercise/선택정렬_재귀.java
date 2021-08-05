@@ -1,5 +1,3 @@
-package problemsolving;
-
 /**
  * Slection sort 재귀 
  */
