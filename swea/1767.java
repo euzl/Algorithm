@@ -53,6 +53,8 @@ class Solution
 			return;
 		}
 
+		if (core.size() - cIdx + coreCnt < maxCoreCnt) return; // backtracking
+		
 		// 이 코어 제외 
 		DFS(cIdx+1, coreCnt, lineSum);
 		
