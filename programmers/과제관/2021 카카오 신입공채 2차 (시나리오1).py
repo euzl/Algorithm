@@ -2,50 +2,64 @@ import json, requests
 
 url = '<url>'
 
+
 # Start API 키 발급 (한 번 실행 후 주석처리)
 # auth_key 저장해서 사용 !
-headers = {
-    'X-Auth-Token': '<token>',
-    'Content-Type': 'application/json',
-}
+def start():
+    headers = {
+        'X-Auth-Token': '<token>',
+        'Content-Type': 'application/json',
+    }
+    data = '{ "problem": 1 }'
 
-data = '{ "problem": 1 }'
+    response = requests.post(url + '/start', headers=headers, data=data).json()
+    print(response)
 
-response = requests.post(url+'/start', headers=headers, data=data).json()
-print(response)
+    auth_key = response['auth_key']
+    print(auth_key)
 
-auth_key = response['auth_key']
-print(auth_key)
+    return auth_key
 
-# auth_key 설정
-key = auth_key
 
-# locations 읽기
+key = start()
+
+
 headers = {
     'Authorization': key,
     'Content-Type': 'application/json',
 }
 
-locations = requests.get(url + '/locations', headers=headers).json()['locations']
+lc = [0 for i in range(25)]
+trucks = [0 for i in range(5)]
 
-# 편하게 사용하기 위해 리스트로 복사
-lc = []
-for i in range(0, 25):
-    lc.append(locations[i]['located_bikes_count'])
-print(lc)
+
+# locations 읽기
+def getLocation():
+    locations = requests.get(url + '/locations', headers=headers).json()['locations']
+
+    # 편하게 사용하기 위해 리스트로 복사
+    for i in range(0, 25):
+        lc[i] = locations[i]['located_bikes_count']
+
 
 # trucks 읽기
-trucks = requests.get(url + '/trucks', headers=headers).json()['trucks']
-# print(len(trucks))  # 리스트의 개수
+def getTrucks():
+    tr = requests.get(url + '/trucks', headers=headers).json()['trucks']
 
-# for i in trucks:  # for-each 해봤다.
-# #     print(i)
+    for i in range(0, 5):
+        trucks[i] = tr[i]
 
 
-# #############################################################
-# #################### 알고리즘 구현 #############################
-
+# 트럭 옮기기
 def move(line_id):
+    """
+    <단순 알고리즘>
+    1. 각 라인별로 트럭 1대씩 배치
+    2. 3이하 -> 아래로 출발, 3초과 -> 위로 출발
+    3. 바이크의 개수에 따라 싣거나 놓는다.
+    :param line_id: 각 라인 (열 기준)
+    :return: 트럭의 움직임이 담긴 command 리스트
+    """
     command = []
 
     # 현재 트럭의 위치
@@ -68,11 +82,10 @@ def move(line_id):
     bound_up = bound_down + 5
     bike_cnt = trucks[line_id]['loaded_bikes_count']
 
-    truck_dir = 0
     if truck_id%5 > 3:
-        truck_dir = 1 #위로
+        truck_dir = 1  # 위로
     else:
-        truck_dir = 3 #아래로
+        truck_dir = 3  # 아래로
 
     while len(command) <= 10:
         if truck_dir == 1:
@@ -105,16 +118,19 @@ def move(line_id):
     return command
 
 
-# #############################################################
+def simulate():
+    data = json.dumps({"commands": commands})
+    # simulate API
+    res = requests.put(url + '/simulate', headers=headers, data=data).json()
+    print(res)
 
-# commands 저장
+
+# 720번 실행
 for j in range(720):
-    locations = requests.get(url + '/locations', headers=headers).json()['locations']
-    for il in range(25):
-        lc[il] = locations[i]['located_bikes_count']
+    getLocation()
+    getTrucks()
 
-    trucks = requests.get(url + '/trucks', headers=headers).json()['trucks']
-
+    # commands 저장
     commands = []
     for i in range(5):
         d = dict()
@@ -122,20 +138,9 @@ for j in range(720):
         d["command"] = move(i)
         commands.append(d)
 
-    # json
-    data = {
-        "commands": commands
-    }
-    
-    data = json.dumps(data)
-    
+    simulate()
 
-    # simulate API
-    res = requests.put(url + '/simulate', headers=headers, data=data).json()
-    # print(j)
-    # print(res)
 
-    
 # print Result
 result = requests.get(url + '/score', headers=headers).json()
 print(result)
